@@ -27,7 +27,7 @@
 >
 > `isEmpty()` ：判断栈是否为空
 
-其有两种实现方式：
+其有两种实现方式（数据类型以 `int` 为例）：
 
 - 顺序表实现：
 
@@ -81,11 +81,50 @@
 
 - 链表实现：
 
-- 
+  ```c++
+  class Stack {
+  private:
+  	node* topNode;
+  
+  public:
+  	Stack(void) {
+  		topNode = NULL;
+  	}
+  
+  	void push(int _data) {
+  		node* p = new node(_data);
+  		p->next = topNode;
+  		topNode = p;
+  	}
+  
+  	void pop(void) {
+  		if (topNode) {
+  			node* p = topNode;
+  			topNode = topNode->next;
+  			delete p;
+  			p = NULL;
+  		}
+  		else {
+  			cout << "Stack Empty !" << endl;
+  		}
+  	}
+  
+  	int top(void) {
+  		return topNode->data;
+  	}
+  
+  	bool isEmpty(void) {
+  		return topNode == NULL;
+  	}
+  
+  };
+  ```
 
+堆栈的运用：
 
+- **前缀表达式、中缀表达式和后缀表达式**：
 
-前缀表达式、中缀表达式和后缀表达式：
+  
 
 
 
