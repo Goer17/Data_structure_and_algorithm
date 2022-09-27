@@ -16,6 +16,81 @@
 
 #### 堆栈
 
+> 堆栈是一种先如后出，自顶向下的线性数据结构。
+>
+> 其有四种常用方法：
+> `push(data)` ：将数据压入栈顶
+>
+> `pop()` ：将栈顶的数据弹出
+>
+> `top()` : 返回栈顶元素
+>
+> `isEmpty()` ：判断栈是否为空
+
+其有两种实现方式：
+
+- 顺序表实现：
+
+  ```c++
+  class Stack {
+  private:
+  	int* arr;
+  
+  	int size;
+  
+  public:
+  
+  	Stack(void) {
+  		arr = new int[MAX_SIZE]();
+  		size = 0;
+  	}
+  
+  	void push(int _data) {
+  		if (size < MAX_SIZE) {
+  			arr[size++] = _data;
+  		}
+  		else {
+  			cout << "Stack overflow !" << endl;
+  		}
+  	}
+  
+  	void pop(void) {
+  		if (size > 0) {
+  			arr[size--] = 0;
+  		}
+  		else {
+  			cout << "Stack Empty !" << endl;
+  		}
+  	}
+  
+  	int top(void) {
+  		if (size > 0) {
+  			return arr[size - 1];
+  		}
+  		else {
+  			cout << "Stack Empty !" << endl;
+  			return 0;
+  		}
+  	}
+  
+  	bool isEmpty(void) {
+  		return size == 0;
+  	}
+  };
+  ```
+
+- 链表实现：
+
+- 
+
+
+
+前缀表达式、中缀表达式和后缀表达式：
+
+
+
+
+
 #### 队列
 
 ### 树结构
