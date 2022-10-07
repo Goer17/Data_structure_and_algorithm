@@ -156,6 +156,71 @@
 
 #### 队列
 
+
+
+
+
+#### 字符串
+
+**KMP 算法**
+
+```c++
+class Solution {
+private:
+    vector<int> build_next(string needle) {
+        // 构造 next 数组
+        vector<int> next{ 0 };
+        int i = 1, fix_len = 0;
+        while (i < needle.size()) {
+            if (needle[fix_len] == needle[i]) {
+                next.push_back(++fix_len);
+                i++;
+            }
+            else {
+                if (fix_len == 0) {
+                    next.push_back(0);
+                    i++;
+                }
+                else {
+                    fix_len = next[fix_len - 1];
+                }
+            }
+        }
+
+        return next;
+    }
+
+
+public:
+    int strStr(string haystack, string needle) {
+        vector<int> next = build_next(needle);
+        int i = 0, j = 0; // 目标串和模式串的指针
+        while (i < haystack.size()) {
+            if (haystack[i] == needle[j]) {
+                i++;
+                j++;
+            }
+            else {
+                if (j == 0) {
+                    i++; // 第一个字符就失配
+                }
+                else {
+                    j = next[j - 1];
+                }
+            }
+
+            if (j == needle.size()) {
+                return i - j; // 完全匹配
+            }
+        }
+
+        return -1;
+    }
+};
+```
+
+
+
 ### 树结构
 
 #### 树的定义
