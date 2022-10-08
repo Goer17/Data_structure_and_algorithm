@@ -271,7 +271,7 @@ public:
         <img src="https://typora-1313035735.cos.ap-nanjing.myqcloud.com/img/image-20220805130611835.png" alt="image-20220805130611835" style="zoom:50%;" />
     </center>
   
-  - RL旋转（左右双选）
+  - RL旋转（右左双旋）
   
     <center>
         <img src="https://typora-1313035735.cos.ap-nanjing.myqcloud.com/img/image-20220805131213574.png" alt="image-20220805131213574" style="zoom:50%;" />
