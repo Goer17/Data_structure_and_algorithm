@@ -276,8 +276,116 @@ public:
     <center>
         <img src="https://typora-1313035735.cos.ap-nanjing.myqcloud.com/img/image-20220805131213574.png" alt="image-20220805131213574" style="zoom:50%;" />
     </center>
-    
-    
+  
+- 以 `int` 数据类型为例，代码实现如下：
+
+  ```c++
+  // 节点结构
+  class TreeNode {
+  public:
+      int val;
+      TreeNode* left;
+      TreeNode* right;
+  
+      TreeNode(int _val) {
+          val = _val;
+          left = nullptr;
+          right = nullptr;
+      }
+  };
+  
+  // 计算树的高度
+  int height(TreeNode* root) {
+      return root == nullptr ? 0 : (max(height(root->left), height(root->right)) + 1);
+  }
+  
+  // AVL树类
+  class AVL_tree {
+  private:
+      TreeNode* root;
+  
+      TreeNode* leftRotation(TreeNode* cur) {
+          // 左单旋
+          TreeNode* p = cur->right;
+          cur->right = p->left;
+          p->left = cur;
+  
+          return p;
+      }
+  
+      TreeNode* rightRotation(TreeNode* cur) {
+          // 右单旋
+          TreeNode* p = cur->left;
+          cur->left = p->right;
+          p->right = cur;
+  
+          return p;
+      }
+  
+      TreeNode* leftRightRotation(TreeNode* cur) {
+          // 左右双旋
+          cur->left = leftRotation(cur->left);
+  
+          return rightRotation(cur);
+      }
+  
+      TreeNode* rightLeftRotation(TreeNode* cur) {
+          // 右左双旋
+          cur->right = rightRotation(cur->right);
+  
+          return leftRotation(cur);
+      }
+  
+      TreeNode* insert(TreeNode* cur, int _val) {
+          if (cur == nullptr) {
+              cur = new TreeNode(_val);
+          }
+          else if (cur->val > _val) {
+              cur->left = insert(cur->left, _val);
+              if (height(cur->left) - height(cur->right) >= 2) {
+                  // 插入导致失衡
+                  if (_val < cur->left->val) {
+                      // 插在左子树的左节点
+                      cur = rightRotation(cur); // 右单旋
+                  }
+                  else {
+                      // 插在左子树的右节点
+                      cur = leftRightRotation(cur); // 左右双旋
+                  }
+              }
+          }
+          else if (cur->val < _val) {
+              cur->right = insert(cur->right, _val);
+              if (height(cur->right) - height(cur->left) >= 2) {
+                  // 插入导致失衡
+                  if (_val > cur->right->val) {
+                      // 插在右子树的右节点
+                      cur = leftRotation(cur); // 左单旋
+                  }
+                  else {
+                      // 插在右子树的左节点
+                      cur = rightLeftRotation(cur); // 右左双旋
+                  }
+              }
+          }
+  
+          return cur;
+      }
+  
+  public:
+      AVL_tree(void) {
+          root = nullptr;
+      }
+  
+      void insert(int _val) {
+          // 插入操作
+          root = insert(root, _val);
+      }
+  };
+  
+  ```
+
+  
 
 #### 堆
 
@@ -331,7 +439,7 @@ Heap::Heap(int _capacity)
 	capacity = _capacity;
 	size = 0;
 	data = new int[capacity + 1];
-    data[0] = inf; // data[0]作为哨兵，储存一个足够大的数，比任何插入的数字都大，防止插入大数据时出现无限循环
+ 	data[0] = inf; // data[0]作为哨兵，储存一个足够大的数，比任何插入的数字都大，防止插入大数据时出现无限循环
 }
 ```
 
